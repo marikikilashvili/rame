@@ -37,15 +37,14 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.container, { opacity: fadeIn }]}>
-        <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/splash-icon.png")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.welcomeText}>Welcome to Rame Universe</Text>
-        </View>
+      <Animated.View style={[styles.imageContainer, { opacity: fadeIn }]}>
+        <Image
+          source={require("../assets/images/logo.png")}
+          style={styles.image}
+        />
+      </Animated.View>
+      <Animated.View style={[styles.textContainer, { opacity: fadeIn }]}>
+        <Text style={styles.text}>Welcome to Sport Universe</Text>
       </Animated.View>
     </View>
   );
@@ -55,21 +54,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#181E2A",
-    justifyContent: "center",
+    position: "relative",
+  },
+  imageContainer: {
+    position: "absolute",
+    top: 136,
+    left: 0,
+    right: 0,
     alignItems: "center",
   },
-  logoContainer: {
+  image: {
+    width: 173,
+    height: 242,
+    resizeMode: "contain",
+  },
+  textContainer: {
+    position: "absolute",
+    bottom: 35,
+    left: 0,
+    right: 0,
     alignItems: "center",
   },
-  logo: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
-  },
-  welcomeText: {
-    fontSize: 24,
-    color: "#FFFFFF",
-    fontWeight: "bold",
+  text: {
+    fontFamily: "Noto Sans Georgian",
+    fontWeight: "500",
+    fontStyle: "normal",
+    fontSize: 14,
+    lineHeight: 14,
+    letterSpacing: 0,
+    color: "rgba(136, 136, 136, 1)",
     textAlign: "center",
   },
 });

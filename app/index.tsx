@@ -2,6 +2,7 @@ import { Link } from "expo-router";
 import React, { useCallback, useRef, useState } from "react";
 import {
   Animated,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -32,7 +33,10 @@ export default function Index() {
       {/* Sportverse Logo */}
       <View style={styles.logoContainer}>
         <View style={styles.logoWrapper}>
-          <Text style={styles.logoText}>SV</Text>
+          <Image
+            source={require("../assets/images/logo1.png")}
+            style={styles.image}
+          />
         </View>
         <Text style={styles.brandText}>SPORTVERSE</Text>
       </View>
@@ -78,13 +82,12 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: "center",
-    marginBottom: 40,
+    gap: 41,
   },
   logoWrapper: {
     width: 80,
     height: 80,
     borderRadius: 20,
-    backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 15,
@@ -93,6 +96,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     color: "#1a1a1a",
+  },
+  image: {
+    width: 174,
+    height: 165,
+    resizeMode: "contain",
   },
   brandText: {
     fontSize: 16,
@@ -104,25 +112,27 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#FFFFFF",
-    marginBottom: 10,
+    marginTop: 90,
     textAlign: "center",
   },
   welcomeSubtitle: {
     fontSize: 16,
     color: "#CCCCCC",
     textAlign: "center",
-    marginBottom: 40,
+    marginTop: 20,
+    marginBottom: 20,
+
     lineHeight: 22,
   },
   buttonContainer: {
     width: "100%",
-    marginBottom: 30,
+    marginBottom: 16,
   },
   signInButton: {
     backgroundColor: "#FFFFFF",
     paddingVertical: 15,
     borderRadius: 8,
-    marginBottom: 15,
+    marginBottom: 16,
     width: "100%",
   },
   signInButtonText: {
@@ -147,7 +157,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#CCCCCC",
     textAlign: "center",
-    marginBottom: 20,
   },
   footerLink: {
     color: "#007AFF",
@@ -159,5 +168,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
     letterSpacing: 1,
+    position: "absolute",
+    bottom: 29,
+    left: 0,
+    right: 0,
   },
 });

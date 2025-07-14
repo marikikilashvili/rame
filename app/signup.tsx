@@ -3,6 +3,7 @@ import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import {
   Alert,
+  Image,
   Linking,
   Modal,
   Platform,
@@ -36,13 +37,14 @@ export default function SignUp() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState({
-    code: "+1",
-    flag: "🇺🇸",
-    name: "United States",
+    code: "+995",
+    flag: "��",
+    name: "Georgia",
   });
   const [signupMethod, setSignupMethod] = useState<"phone" | "email">("phone");
 
   const countries = [
+    { code: "+995", flag: "🇬🇪", name: "Georgia" },
     { code: "+1", flag: "🇺🇸", name: "United States" },
     { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
     { code: "+33", flag: "🇫🇷", name: "France" },
@@ -58,6 +60,31 @@ export default function SignUp() {
     { code: "+61", flag: "🇦🇺", name: "Australia" },
     { code: "+82", flag: "🇰🇷", name: "South Korea" },
     { code: "+90", flag: "🇹🇷", name: "Turkey" },
+    { code: "+31", flag: "🇳🇱", name: "Netherlands" },
+    { code: "+41", flag: "🇨🇭", name: "Switzerland" },
+    { code: "+46", flag: "🇸🇪", name: "Sweden" },
+    { code: "+47", flag: "🇳🇴", name: "Norway" },
+    { code: "+45", flag: "🇩🇰", name: "Denmark" },
+    { code: "+358", flag: "🇫🇮", name: "Finland" },
+    { code: "+48", flag: "🇵🇱", name: "Poland" },
+    { code: "+380", flag: "🇺🇦", name: "Ukraine" },
+    { code: "+420", flag: "🇨🇿", name: "Czech Republic" },
+    { code: "+36", flag: "🇭🇺", name: "Hungary" },
+    { code: "+40", flag: "🇷🇴", name: "Romania" },
+    { code: "+359", flag: "🇧🇬", name: "Bulgaria" },
+    { code: "+30", flag: "🇬🇷", name: "Greece" },
+    { code: "+351", flag: "🇵🇹", name: "Portugal" },
+    { code: "+32", flag: "🇧🇪", name: "Belgium" },
+    { code: "+43", flag: "🇦🇹", name: "Austria" },
+    { code: "+353", flag: "🇮🇪", name: "Ireland" },
+    { code: "+385", flag: "🇭🇷", name: "Croatia" },
+    { code: "+381", flag: "🇷🇸", name: "Serbia" },
+    { code: "+374", flag: "🇦🇲", name: "Armenia" },
+    { code: "+994", flag: "🇦🇿", name: "Azerbaijan" },
+    { code: "+375", flag: "🇧🇾", name: "Belarus" },
+    { code: "+372", flag: "🇪🇪", name: "Estonia" },
+    { code: "+371", flag: "🇱🇻", name: "Latvia" },
+    { code: "+370", flag: "🇱🇹", name: "Lithuania" },
   ];
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -574,19 +601,28 @@ export default function SignUp() {
                 style={styles.socialButton}
                 onPress={() => handleSocialLogin("Apple")}
               >
-                <Ionicons name="logo-apple" size={24} color="#000" />
+                <Image
+                  source={require("../assets/images/logo1.png")}
+                  style={styles.socialIcon}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.socialButton}
                 onPress={() => handleSocialLogin("Google")}
               >
-                <Ionicons name="logo-google" size={24} color="#000" />
+                <Image
+                  source={require("../assets/images/logo1.png")}
+                  style={styles.socialIcon}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.socialButton}
                 onPress={() => handleSocialLogin("Facebook")}
               >
-                <Ionicons name="logo-facebook" size={24} color="#000" />
+                <Image
+                  source={require("../assets/images/logo1.png")}
+                  style={styles.socialIcon}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -734,16 +770,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   formContainer: {
-    backgroundColor: "#FFFFFF",
-    marginHorizontal: 20,
-    marginTop: 20,
-    borderRadius: 12,
-    padding: 25,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    paddingHorizontal: 19,
+    paddingVertical: 20,
   },
   title: {
     fontSize: 24,
@@ -768,7 +796,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -799,7 +827,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   countryCode: {
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -811,7 +839,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   phoneInput: {
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -874,11 +902,16 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#E9ECEF",
+  },
+  socialIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
   },
   footer: {
     alignItems: "center",
@@ -922,7 +955,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   countryCodeButton: {
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,

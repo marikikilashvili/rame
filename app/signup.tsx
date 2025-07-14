@@ -595,36 +595,36 @@ export default function SignUp() {
 
           {/* Or sign in with */}
           <View style={styles.socialContainer}>
-            <Text style={styles.socialText}>Or sign in with</Text>
-            <View style={styles.socialButtons}>
-              <TouchableOpacity
-                style={styles.socialButton}
-                onPress={() => handleSocialLogin("Apple")}
-              >
-                <Image
-                  source={require("../assets/images/logo1.png")}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.socialButton}
-                onPress={() => handleSocialLogin("Google")}
-              >
-                <Image
-                  source={require("../assets/images/logo1.png")}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.socialButton}
-                onPress={() => handleSocialLogin("Facebook")}
-              >
-                <Image
-                  source={require("../assets/images/logo1.png")}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-            </View>
+                      <Text style={styles.socialText}>Or sign in with</Text>
+                      <View style={styles.socialContainer1}>
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={() => handleSocialLogin("Apple")}
+            >
+              <Image
+                source={require("../assets/images/apple.png")}
+                style={styles.socialIcon}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={() => handleSocialLogin("Google")}
+            >
+              <Image
+                source={require("../assets/images/google.png")}
+                style={styles.socialIcon}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={() => handleSocialLogin("Facebook")}
+            >
+              <Image
+                source={require("../assets/images/facebook.png")}
+                style={styles.socialIcon}
+              />
+                          </TouchableOpacity>
+                          </View>
           </View>
 
           {/* Footer */}
@@ -886,31 +886,37 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   socialContainer: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 20,
-  },
+    },
+    socialContainer1: {
+            flexDirection: "row",
+
+    },
   socialText: {
     fontSize: 12,
     color: "#666",
-    marginBottom: 15,
+    marginRight: 15,
   },
   socialButtons: {
     flexDirection: "row",
-    gap: 15,
+    justifyContent: "center",
+    alignItems: "center",
   },
   socialButton: {
-    width: 44,
-    height: 44,
+    width: 45,
+    height: 35,
     borderRadius: 22,
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E9ECEF",
+    marginHorizontal: 6,
   },
   socialIcon: {
-    width: 24,
-    height: 24,
+    width: 45,
+    height: 35,
     resizeMode: "contain",
   },
   footer: {

@@ -192,13 +192,13 @@ export default function SignIn() {
           {/* Social Login */}
           <View style={styles.socialContainer}>
             <Text style={styles.socialText}>Or sign in with</Text>
-            <View style={styles.socialButtons}>
+            <View style={styles.socialContainer1}>
               <TouchableOpacity
                 style={styles.socialButton}
                 onPress={() => handleSocialLogin("Apple")}
               >
                 <Image
-                  source={require("../assets/images/logo1.png")}
+                  source={require("../assets/images/apple.png")}
                   style={styles.socialIcon}
                 />
               </TouchableOpacity>
@@ -207,7 +207,7 @@ export default function SignIn() {
                 onPress={() => handleSocialLogin("Google")}
               >
                 <Image
-                  source={require("../assets/images/logo1.png")}
+                  source={require("../assets/images/google.png")}
                   style={styles.socialIcon}
                 />
               </TouchableOpacity>
@@ -216,7 +216,7 @@ export default function SignIn() {
                 onPress={() => handleSocialLogin("Facebook")}
               >
                 <Image
-                  source={require("../assets/images/logo1.png")}
+                  source={require("../assets/images/facebook.png")}
                   style={styles.socialIcon}
                 />
               </TouchableOpacity>
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   forgotPassword: {
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
   },
   forgotPasswordText: {
     fontSize: 14,
@@ -436,13 +436,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   socialContainer: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 32,
+  },
+  socialContainer1: {
+    flexDirection: "row",
   },
   socialText: {
     fontSize: 14,
     color: "#666",
-    marginBottom: 16,
+    marginRight: 16,
   },
   socialButtons: {
     flexDirection: "row",
@@ -450,19 +455,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   socialButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 45,
+    height: 35,
+    borderRadius: 22,
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 8,
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
   },
   socialIcon: {
-    width: 24,
-    height: 24,
+    width: 45,
+    height: 35,
     resizeMode: "contain",
   },
   footer: {

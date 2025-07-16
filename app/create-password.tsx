@@ -60,7 +60,7 @@ export default function CreatePassword() {
           />
         </View>
 
-        <Text style={styles.title}>Create your new password</Text>
+        <Text style={styles.title}>Create your{"\n"}new password</Text>
 
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Password</Text>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "700",
     color: "#333",
     textAlign: "center",
   },
@@ -152,13 +152,14 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   illustration: {
-    width: 200,
-    height: 200,
+    width: 330,
+    height: 306,
+    marginTop: 100,
   },
   title: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: "bold",
-    color: "#333",
+    color: "#263238",
     marginBottom: 40,
     textAlign: "left",
   },
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     color: "#333",
-    marginBottom: 8,
+    marginBottom: 0,
   },
   inputWrapper: {
     position: "relative",

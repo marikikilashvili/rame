@@ -26,50 +26,51 @@ export default function SignIn() {
     code: "+995",
     flag: "🇬🇪",
     name: "Georgia",
+    shortCode: "GE",
   });
 
   const countries = [
-    { code: "+995", flag: "🇬🇪", name: "Georgia" },
-    { code: "+1", flag: "🇺🇸", name: "United States" },
-    { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
-    { code: "+33", flag: "🇫🇷", name: "France" },
-    { code: "+49", flag: "🇩🇪", name: "Germany" },
-    { code: "+39", flag: "🇮🇹", name: "Italy" },
-    { code: "+34", flag: "🇪🇸", name: "Spain" },
-    { code: "+7", flag: "🇷🇺", name: "Russia" },
-    { code: "+86", flag: "🇨🇳", name: "China" },
-    { code: "+81", flag: "🇯🇵", name: "Japan" },
-    { code: "+91", flag: "🇮🇳", name: "India" },
-    { code: "+55", flag: "🇧🇷", name: "Brazil" },
-    { code: "+52", flag: "🇲🇽", name: "Mexico" },
-    { code: "+61", flag: "🇦🇺", name: "Australia" },
-    { code: "+82", flag: "🇰🇷", name: "South Korea" },
-    { code: "+90", flag: "🇹🇷", name: "Turkey" },
-    { code: "+31", flag: "🇳🇱", name: "Netherlands" },
-    { code: "+41", flag: "🇨🇭", name: "Switzerland" },
-    { code: "+46", flag: "🇸🇪", name: "Sweden" },
-    { code: "+47", flag: "🇳🇴", name: "Norway" },
-    { code: "+45", flag: "🇩🇰", name: "Denmark" },
-    { code: "+358", flag: "🇫🇮", name: "Finland" },
-    { code: "+48", flag: "🇵🇱", name: "Poland" },
-    { code: "+380", flag: "🇺🇦", name: "Ukraine" },
-    { code: "+420", flag: "🇨🇿", name: "Czech Republic" },
-    { code: "+36", flag: "🇭🇺", name: "Hungary" },
-    { code: "+40", flag: "🇷🇴", name: "Romania" },
-    { code: "+359", flag: "🇧🇬", name: "Bulgaria" },
-    { code: "+30", flag: "🇬🇷", name: "Greece" },
-    { code: "+351", flag: "🇵🇹", name: "Portugal" },
-    { code: "+32", flag: "🇧🇪", name: "Belgium" },
-    { code: "+43", flag: "🇦🇹", name: "Austria" },
-    { code: "+353", flag: "🇮🇪", name: "Ireland" },
-    { code: "+385", flag: "🇭🇷", name: "Croatia" },
-    { code: "+381", flag: "🇷🇸", name: "Serbia" },
-    { code: "+374", flag: "🇦🇲", name: "Armenia" },
-    { code: "+994", flag: "🇦🇿", name: "Azerbaijan" },
-    { code: "+375", flag: "🇧🇾", name: "Belarus" },
-    { code: "+372", flag: "�🇪", name: "Estonia" },
-    { code: "+371", flag: "🇱🇻", name: "Latvia" },
-    { code: "+370", flag: "🇱🇹", name: "Lithuania" },
+    { code: "+995", flag: "🇬🇪", name: "Georgia", shortCode: "GE" },
+    { code: "+1", flag: "🇺🇸", name: "United States", shortCode: "US" },
+    { code: "+44", flag: "🇬🇧", name: "United Kingdom", shortCode: "GB" },
+    { code: "+33", flag: "🇫🇷", name: "France", shortCode: "FR" },
+    { code: "+49", flag: "🇩🇪", name: "Germany", shortCode: "DE" },
+    { code: "+39", flag: "🇮🇹", name: "Italy", shortCode: "IT" },
+    { code: "+34", flag: "🇪🇸", name: "Spain", shortCode: "ES" },
+    { code: "+7", flag: "🇷🇺", name: "Russia", shortCode: "RU" },
+    { code: "+86", flag: "🇨🇳", name: "China", shortCode: "CN" },
+    { code: "+81", flag: "🇯🇵", name: "Japan", shortCode: "JP" },
+    { code: "+91", flag: "🇮🇳", name: "India", shortCode: "IN" },
+    { code: "+55", flag: "🇧🇷", name: "Brazil", shortCode: "BR" },
+    { code: "+52", flag: "🇲🇽", name: "Mexico", shortCode: "MX" },
+    { code: "+61", flag: "🇦🇺", name: "Australia", shortCode: "AU" },
+    { code: "+82", flag: "🇰🇷", name: "South Korea", shortCode: "KR" },
+    { code: "+90", flag: "🇹🇷", name: "Turkey", shortCode: "TR" },
+    { code: "+31", flag: "🇳🇱", name: "Netherlands", shortCode: "NL" },
+    { code: "+41", flag: "🇨🇭", name: "Switzerland", shortCode: "CH" },
+    { code: "+46", flag: "🇸🇪", name: "Sweden", shortCode: "SE" },
+    { code: "+47", flag: "🇳🇴", name: "Norway", shortCode: "NO" },
+    { code: "+45", flag: "🇩🇰", name: "Denmark", shortCode: "DK" },
+    { code: "+358", flag: "🇫🇮", name: "Finland", shortCode: "FI" },
+    { code: "+48", flag: "🇵🇱", name: "Poland", shortCode: "PL" },
+    { code: "+380", flag: "🇺🇦", name: "Ukraine", shortCode: "UA" },
+    { code: "+420", flag: "🇨🇿", name: "Czech Republic", shortCode: "CZ" },
+    { code: "+36", flag: "🇭🇺", name: "Hungary", shortCode: "HU" },
+    { code: "+40", flag: "🇷🇴", name: "Romania", shortCode: "RO" },
+    { code: "+359", flag: "🇧🇬", name: "Bulgaria", shortCode: "BG" },
+    { code: "+30", flag: "🇬🇷", name: "Greece", shortCode: "GR" },
+    { code: "+351", flag: "🇵🇹", name: "Portugal", shortCode: "PT" },
+    { code: "+32", flag: "🇧🇪", name: "Belgium", shortCode: "BE" },
+    { code: "+43", flag: "🇦🇹", name: "Austria", shortCode: "AT" },
+    { code: "+353", flag: "🇮🇪", name: "Ireland", shortCode: "IE" },
+    { code: "+385", flag: "🇭🇷", name: "Croatia", shortCode: "HR" },
+    { code: "+381", flag: "🇷🇸", name: "Serbia", shortCode: "RS" },
+    { code: "+374", flag: "🇦🇲", name: "Armenia", shortCode: "AM" },
+    { code: "+994", flag: "🇦🇿", name: "Azerbaijan", shortCode: "AZ" },
+    { code: "+375", flag: "🇧🇾", name: "Belarus", shortCode: "BY" },
+    { code: "+372", flag: "🇪🇪", name: "Estonia", shortCode: "EE" },
+    { code: "+371", flag: "🇱🇻", name: "Latvia", shortCode: "LV" },
+    { code: "+370", flag: "🇱🇹", name: "Lithuania", shortCode: "LT" },
   ];
 
   const handleSignIn = () => {
@@ -162,7 +163,9 @@ export default function SignIn() {
                   style={styles.countryCode}
                   onPress={() => setShowCountryPicker(true)}
                 >
-                  <Text style={styles.countryFlag}>{selectedCountry.flag}</Text>
+                  <Text style={styles.countryShortCode}>
+                    {selectedCountry.shortCode}
+                  </Text>
                   <Text style={styles.countryCodeText}>
                     {selectedCountry.code}
                   </Text>
@@ -177,7 +180,10 @@ export default function SignIn() {
                   keyboardType="phone-pad"
                 />
                 <TouchableOpacity style={styles.inputIcon}>
-                  <Ionicons name="copy-outline" size={20} color="#666" />
+                  <Image
+                    source={require("../assets/images/phone.png")}
+                    style={styles.phoneIcon}
+                  />
                 </TouchableOpacity>
               </View>
             ) : (
@@ -197,25 +203,28 @@ export default function SignIn() {
               </View>
             )}
 
-            <View style={styles.passwordInputContainer}>
-              <TextInput
-                style={styles.passwordInput}
-                placeholder="••••••••••••••"
-                placeholderTextColor="#999"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={!showPassword}
-              />
-              <TouchableOpacity
-                style={styles.passwordToggle}
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                <Ionicons
-                  name={showPassword ? "eye-outline" : "eye-off-outline"}
-                  size={20}
-                  color="#666"
+            <View style={styles.passwordContainer}>
+              <Text style={styles.passwordLabel}>Password</Text>
+              <View style={styles.passwordInputContainer}>
+                <TextInput
+                  style={styles.passwordInput}
+                  placeholder="••••••••••••••"
+                  placeholderTextColor="#999"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!showPassword}
                 />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.passwordToggle}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <Ionicons
+                    name={showPassword ? "eye-outline" : "eye-off-outline"}
+                    size={20}
+                    color="#666"
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
 
             <TouchableOpacity
@@ -341,15 +350,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    // shadowOffset: { width: 0, height: 4 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 8,
-    // elevation: 5,
-  },
-  logoText: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#2C3E50",
   },
   logoImage: {
     width: 97,
@@ -364,13 +364,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#2C3E50",
+    color: "#263238",
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#2C3E50",
+    color: "#263238",
     marginBottom: 12,
   },
   description: {
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
   },
   toggleLabel: {
     fontSize: 16,
-    color: "#2C3E50",
+    color: "#000000",
     fontWeight: "600",
   },
   toggleButton: {
@@ -400,6 +400,15 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 32,
+  },
+  passwordContainer: {
+    marginBottom: 16,
+  },
+  passwordLabel: {
+    fontSize: 16,
+    color: "#000000",
+    fontWeight: "600",
+    marginBottom: 8,
   },
   phoneInputContainer: {
     flexDirection: "row",
@@ -426,20 +435,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 8,
     fontSize: 16,
-    color: "#2C3E50",
+    color: "#263238",
   },
   countryCode: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 0,
     paddingVertical: 8,
-    borderRightWidth: 1,
-    borderRightColor: "#E0E0E0",
     marginRight: 12,
+  },
+  countryShortCode: {
+    fontSize: 16,
+    color: "#AAAAAA",
+    fontWeight: "600",
+    marginRight: 8,
   },
   countryCodeText: {
     fontSize: 16,
-    color: "#2C3E50",
+    color: "#AAAAAA",
     marginRight: 8,
   },
   phoneInput: {
@@ -447,7 +460,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 8,
     fontSize: 16,
-    color: "#2C3E50",
+    color: "#AAAAAA",
   },
   inputIcon: {
     padding: 8,
@@ -458,7 +471,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderBottomWidth: 1,
     borderBottomColor: "#E0E0E0",
-    marginBottom: 16,
     backgroundColor: "transparent",
     paddingVertical: 8,
   },
@@ -467,7 +479,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 8,
     fontSize: 16,
-    color: "#2C3E50",
+    color: "#AAAAAA",
   },
   passwordToggle: {
     padding: 8,
@@ -511,11 +523,6 @@ const styles = StyleSheet.create({
     color: "#666",
     marginRight: 16,
   },
-  socialButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   socialButton: {
     width: 45,
     height: 35,
@@ -528,6 +535,11 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: 45,
     height: 35,
+    resizeMode: "contain",
+  },
+  phoneIcon: {
+    width: 20,
+    height: 20,
     resizeMode: "contain",
   },
   footer: {

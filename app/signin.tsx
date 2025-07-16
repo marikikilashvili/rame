@@ -17,6 +17,7 @@ import {
 
 export default function SignIn() {
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loginMethod, setLoginMethod] = useState("phone"); // "phone" or "email"
@@ -72,9 +73,20 @@ export default function SignIn() {
   ];
 
   const handleSignIn = () => {
-    if (!phone || !password) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
+    if (loginMethod === "phone") {
+      if (!phone || !password) {
+        Alert.alert("Error", "Please fill in all fields");
+        return;
+      }
+    } else {
+      if (!email || !password) {
+        Alert.alert("Error", "Please fill in all fields");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        Alert.alert("Error", "Please enter a valid email address");
+        return;
+      }
     }
 
     // Navigate directly to main app
@@ -88,6 +100,10 @@ export default function SignIn() {
     setTimeout(() => {
       router.push("/main");
     }, 1000);
+  };
+
+  const handleForgotPassword = () => {
+    router.push("/forgot-password" as any);
   };
 
   return (
@@ -121,42 +137,65 @@ export default function SignIn() {
 
           {/* Login Method Toggle */}
           <View style={styles.toggleContainer}>
-            <Text style={styles.toggleLabel}>Phone</Text>
+            <Text style={styles.toggleLabel}>
+              {loginMethod === "phone" ? "Phone" : "Email"}
+            </Text>
             <TouchableOpacity
               style={styles.toggleButton}
               onPress={() =>
                 setLoginMethod(loginMethod === "phone" ? "email" : "phone")
               }
             >
-              <Text style={styles.toggleText}>Login with Email</Text>
+              <Text style={styles.toggleText}>
+                {loginMethod === "phone"
+                  ? "Login with Email"
+                  : "Login with Phone"}
+              </Text>
             </TouchableOpacity>
           </View>
 
           {/* Input Fields */}
           <View style={styles.inputContainer}>
-            <View style={styles.phoneInputContainer}>
-              <TouchableOpacity
-                style={styles.countryCode}
-                onPress={() => setShowCountryPicker(true)}
-              >
-                <Text style={styles.countryFlag}>{selectedCountry.flag}</Text>
-                <Text style={styles.countryCodeText}>
-                  {selectedCountry.code}
-                </Text>
-                <Ionicons name="chevron-down" size={16} color="#666" />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.phoneInput}
-                placeholder="555 555001"
-                placeholderTextColor="#999"
-                value={phone}
-                onChangeText={setPhone}
-                keyboardType="phone-pad"
-              />
-              <TouchableOpacity style={styles.inputIcon}>
-                <Ionicons name="copy-outline" size={20} color="#666" />
-              </TouchableOpacity>
-            </View>
+            {loginMethod === "phone" ? (
+              <View style={styles.phoneInputContainer}>
+                <TouchableOpacity
+                  style={styles.countryCode}
+                  onPress={() => setShowCountryPicker(true)}
+                >
+                  <Text style={styles.countryFlag}>{selectedCountry.flag}</Text>
+                  <Text style={styles.countryCodeText}>
+                    {selectedCountry.code}
+                  </Text>
+                  <Ionicons name="chevron-down" size={16} color="#666" />
+                </TouchableOpacity>
+                <TextInput
+                  style={styles.phoneInput}
+                  placeholder="555 555001"
+                  placeholderTextColor="#999"
+                  value={phone}
+                  onChangeText={setPhone}
+                  keyboardType="phone-pad"
+                />
+                <TouchableOpacity style={styles.inputIcon}>
+                  <Ionicons name="copy-outline" size={20} color="#666" />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={styles.emailInputContainer}>
+                <TextInput
+                  style={styles.emailInput}
+                  placeholder="your.email@example.com"
+                  placeholderTextColor="#999"
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
+                <TouchableOpacity style={styles.inputIcon}>
+                  <Ionicons name="mail-outline" size={20} color="#666" />
+                </TouchableOpacity>
+              </View>
+            )}
 
             <View style={styles.passwordInputContainer}>
               <TextInput
@@ -179,7 +218,10 @@ export default function SignIn() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.forgotPassword}>
+            <TouchableOpacity
+              style={styles.forgotPassword}
+              onPress={handleForgotPassword}
+            >
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
@@ -353,7 +395,7 @@ const styles = StyleSheet.create({
   },
   toggleText: {
     fontSize: 16,
-    color: "#007AFF",
+    color: "#AAAAAA",
     fontWeight: "600",
   },
   inputContainer: {
@@ -362,19 +404,38 @@ const styles = StyleSheet.create({
   phoneInputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
-    borderRadius: 12,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0E0E0",
     marginBottom: 16,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
+    paddingVertical: 8,
+  },
+  emailInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0E0E0",
+    marginBottom: 16,
+    backgroundColor: "transparent",
+    paddingVertical: 8,
+  },
+  emailInput: {
+    flex: 1,
+    paddingHorizontal: 0,
+    paddingVertical: 8,
+    fontSize: 16,
+    color: "#2C3E50",
   },
   countryCode: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 16,
+    paddingHorizontal: 0,
+    paddingVertical: 8,
     borderRightWidth: 1,
     borderRightColor: "#E0E0E0",
+    marginRight: 12,
   },
   countryCodeText: {
     fontSize: 16,
@@ -383,39 +444,40 @@ const styles = StyleSheet.create({
   },
   phoneInput: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingHorizontal: 0,
+    paddingVertical: 8,
     fontSize: 16,
     color: "#2C3E50",
   },
   inputIcon: {
-    padding: 16,
+    padding: 8,
   },
   passwordInputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
-    borderRadius: 12,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0E0E0",
     marginBottom: 16,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
+    paddingVertical: 8,
   },
   passwordInput: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingHorizontal: 0,
+    paddingVertical: 8,
     fontSize: 16,
     color: "#2C3E50",
   },
   passwordToggle: {
-    padding: 16,
+    padding: 8,
   },
   forgotPassword: {
     alignSelf: "flex-start",
   },
   forgotPasswordText: {
     fontSize: 14,
-    color: "#007AFF",
+    color: "#AAAAAA",
     fontWeight: "600",
   },
   signInButton: {

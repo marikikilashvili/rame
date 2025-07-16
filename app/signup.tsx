@@ -38,7 +38,7 @@ export default function SignUp() {
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState({
     code: "+995",
-    flag: "��",
+    shortCode: "GE",
     name: "Georgia",
   });
   const [signupMethod, setSignupMethod] = useState<"phone" | "email">("phone");
@@ -290,10 +290,7 @@ export default function SignUp() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Sign Up Page</Text>
-        </View>
+
 
         {/* Form Container */}
         <View style={styles.formContainer}>
@@ -595,36 +592,36 @@ export default function SignUp() {
 
           {/* Or sign in with */}
           <View style={styles.socialContainer}>
-                      <Text style={styles.socialText}>Or sign in with</Text>
-                      <View style={styles.socialContainer1}>
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => handleSocialLogin("Apple")}
-            >
-              <Image
-                source={require("../assets/images/apple.png")}
-                style={styles.socialIcon}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => handleSocialLogin("Google")}
-            >
-              <Image
-                source={require("../assets/images/google.png")}
-                style={styles.socialIcon}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => handleSocialLogin("Facebook")}
-            >
-              <Image
-                source={require("../assets/images/facebook.png")}
-                style={styles.socialIcon}
-              />
-                          </TouchableOpacity>
-                          </View>
+            <Text style={styles.socialText}>Or sign in with</Text>
+            <View style={styles.socialContainer1}>
+              <TouchableOpacity
+                style={styles.socialButton}
+                onPress={() => handleSocialLogin("Apple")}
+              >
+                <Image
+                  source={require("../assets/images/apple.png")}
+                  style={styles.socialIcon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.socialButton}
+                onPress={() => handleSocialLogin("Google")}
+              >
+                <Image
+                  source={require("../assets/images/google.png")}
+                  style={styles.socialIcon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.socialButton}
+                onPress={() => handleSocialLogin("Facebook")}
+              >
+                <Image
+                  source={require("../assets/images/facebook.png")}
+                  style={styles.socialIcon}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
 
           {/* Footer */}
@@ -750,19 +747,13 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#ffffffff",
   },
   scrollView: {
     flex: 1,
   },
   scrollContent: {
     paddingBottom: 50,
-  },
-  header: {
-    backgroundColor: "#333",
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    paddingTop: Platform.OS === "ios" ? 50 : 20,
   },
   headerTitle: {
     color: "#FFF",
@@ -796,19 +787,20 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 8,
-    paddingHorizontal: 15,
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
     color: "#333",
-    borderWidth: 1,
-    borderColor: "#E9ECEF",
-    paddingRight: 40,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#DDDDDD",
+    paddingRight: 30,
   },
   inputIcon: {
     position: "absolute",
-    right: 15,
+    right: 0,
     top: 36,
   },
   phoneHeader: {
@@ -818,7 +810,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   emailOption: {
-    color: "#007AFF",
+    color: "#AAAAAA",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -827,26 +819,28 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   countryCode: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 8,
-    paddingHorizontal: 15,
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
     color: "#333",
-    borderWidth: 1,
-    borderColor: "#E9ECEF",
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#DDDDDD",
     width: 60,
     textAlign: "center",
   },
   phoneInput: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 8,
-    paddingHorizontal: 15,
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
     color: "#333",
-    borderWidth: 1,
-    borderColor: "#E9ECEF",
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#DDDDDD",
     flex: 1,
   },
   termsContainer: {
@@ -890,11 +884,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 20,
-    },
-    socialContainer1: {
-            flexDirection: "row",
-
-    },
+  },
+  socialContainer1: {
+    flexDirection: "row",
+  },
   socialText: {
     fontSize: 12,
     color: "#666",
@@ -1000,7 +993,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#E9ECEF",
+    borderBottomColor: "#DDDDDD",
   },
   modalTitle: {
     fontSize: 18,

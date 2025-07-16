@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 18,
     fontWeight: "600",
-    color: "#333",
+    color: "#125BE4",
     backgroundColor: "#F8F9FA",
   },
   otpInputFilled: {
-    borderColor: "#007AFF",
+    borderColor: "#DDDDDD",
     backgroundColor: "#FFFFFF",
   },
   timerContainer: {

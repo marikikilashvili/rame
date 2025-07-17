@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginRight: 20,
-        marginLeft: 20,
+    marginLeft: 20,
 
     height: 490,
     paddingTop: 60,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   homeButton: {
-    backgroundColor: "#2C3E50",
+    backgroundColor: "##2C3E50",
     paddingVertical: 16,
     paddingHorizontal: 40,
     borderRadius: 8,

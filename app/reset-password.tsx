@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
@@ -12,8 +12,10 @@ import {
 } from "react-native";
 
 export default function ResetPassword() {
+  const { email } = useLocalSearchParams();
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const [timer, setTimer] = useState(30);
+  const userEmail = email || "marikikilashvili@gmail.com"; // Use passed email or fallback
   const inputRefs = useRef<(TextInput | null)[]>([]);
 
   useEffect(() => {
@@ -78,7 +80,7 @@ export default function ResetPassword() {
       <View style={styles.content}>
         <Text style={styles.description}>
           Please enter the verification code we sent to your email{" "}
-          <Text style={styles.emailText}>ex***@gmail.com</Text>
+          <Text style={styles.emailText}>{userEmail}</Text>
         </Text>
 
         <View style={styles.otpContainer}>
@@ -114,8 +116,11 @@ export default function ResetPassword() {
         </TouchableOpacity>
 
         <Text style={styles.timerText}>
-          {String(Math.floor(timer / 60)).padStart(2, "0")}:
-          {String(timer % 60).padStart(2, "0")} sec left
+          <Text style={styles.timerNumbers}>
+            {String(Math.floor(timer / 60)).padStart(2, "0")}:
+            {String(timer % 60).padStart(2, "0")}
+          </Text>
+          <Text style={styles.timerLabel}> sec left</Text>
         </Text>
       </View>
     </SafeAreaView>
@@ -142,18 +147,18 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "700",
     color: "#333",
     textAlign: "center",
   },
   content: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingTop: 127,
   },
   description: {
     fontSize: 14,
-    color: "#666",
+    color: "#AAAAAA",
     lineHeight: 20,
     marginBottom: 40,
   },
@@ -165,22 +170,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 30,
+    width: 210,
+    height: 40,
+    alignSelf: "center",
   },
   otpInput: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 40,
     borderWidth: 1,
-    borderColor: "#E0E0E0",
+    borderColor: "#DDDDDD",
     borderRadius: 8,
-    backgroundColor: "#F8F9FA",
-    fontSize: 18,
+    backgroundColor: "#FFFFFF",
+    fontSize: 16,
     fontWeight: "600",
     color: "#333",
     textAlign: "center",
+    paddingVertical: 8,
   },
   resendContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     marginBottom: 40,
   },
   resendText: {
@@ -198,7 +207,7 @@ const styles = StyleSheet.create({
   verifyButton: {
     backgroundColor: "#2C3E50",
     paddingVertical: 16,
-    borderRadius: 8,
+    borderRadius: 11,
     alignItems: "center",
     marginBottom: 20,
   },
@@ -210,7 +219,13 @@ const styles = StyleSheet.create({
   timerText: {
     textAlign: "center",
     fontSize: 14,
-    color: "#007AFF",
     fontWeight: "500",
+    marginBottom: 20,
+  },
+  timerNumbers: {
+    color: "#007AFF",
+  },
+  timerLabel: {
+    color: "#BBBBBB",
   },
 });

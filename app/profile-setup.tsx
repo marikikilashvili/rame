@@ -134,7 +134,7 @@ export default function ProfileSetup() {
             <Ionicons
               name="camera"
               size={20}
-              color="#2C3E50"
+              color="##2C3E50"
               style={styles.buttonIcon}
             />
             <Text style={styles.actionButtonText}>Camera</Text>
@@ -144,7 +144,7 @@ export default function ProfileSetup() {
             <Ionicons
               name="images"
               size={20}
-              color="#2C3E50"
+              color="##2C3E50"
               style={styles.buttonIcon}
             />
             <Text style={styles.actionButtonText}>Upload</Text>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#2C3E50",
+    color: "##2C3E50",
     marginBottom: 12,
     textAlign: "center",
   },
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   profileTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#2C3E50",
+    color: "##2C3E50",
     marginBottom: 32,
   },
   profileImageContainer: {
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   },
   actionButtonText: {
     fontSize: 16,
-    color: "#2C3E50",
+    color: "##2C3E50",
     fontWeight: "500",
     textAlign: "center",
   },
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   saveButton: {
-    backgroundColor: "#2C3E50",
+    backgroundColor: "##2C3E50",
     paddingVertical: 16,
     borderRadius: 12,
     marginBottom: 16,

@@ -25,8 +25,8 @@ export default function ForgotPassword() {
       return;
     }
 
-    // Navigate to reset password page
-    router.push("/reset-password");
+    // Navigate to reset password page with email parameter
+    router.push(`/reset-password?email=${encodeURIComponent(email)}`);
   };
 
   const handleBackToSignIn = () => {

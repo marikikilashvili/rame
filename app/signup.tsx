@@ -25,7 +25,7 @@ export default function SignUp() {
     confirmPassword: "",
     instagramAccount: "",
     facebookAccount: "",
-    countryOfResidence: "",
+    countryOfResidence: "Georgia",
     acceptTerms: false,
   });
 
@@ -35,6 +35,7 @@ export default function SignUp() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCountryPicker, setShowCountryPicker] = useState(false);
+  const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState({
     code: "+995",
     shortCode: "GE",
@@ -270,8 +271,19 @@ export default function SignUp() {
       return;
     }
 
-    // Navigate to verification page
-    router.push("/verification");
+    // Navigate to verification page with form data
+    const userIdentifier =
+      signupMethod === "phone" ? formData.phone : formData.email;
+    const userData = {
+      fullName: formData.fullName,
+      identifier: userIdentifier,
+      method: signupMethod,
+    };
+
+    router.push({
+      pathname: "/verification",
+      params: userData,
+    });
   };
 
   const handleSocialLogin = (provider: string) => {
@@ -292,7 +304,7 @@ export default function SignUp() {
       >
         {/* Form Container */}
         <View style={styles.formContainer}>
-          <Text style={styles.title}>Create your account</Text>
+          <Text style={styles.title}>Create content {"\n"}creator account</Text>
           <Text style={styles.subtitle}>
             Experience the world at your fingertips with our travel mobile app!
           </Text>
@@ -304,6 +316,7 @@ export default function SignUp() {
               style={[styles.input, errors.fullName && styles.inputError]}
               placeholder="Clifton Simmons"
               placeholderTextColor="#999"
+              underlineColorAndroid="#DDDDDD"
               value={formData.fullName}
               onChangeText={(text) => handleInputChange("fullName", text)}
             />
@@ -341,7 +354,7 @@ export default function SignUp() {
               <View style={styles.phoneInputContainer}>
                 <TouchableOpacity
                   style={styles.countryCodeButton}
-                  onPress={() => setShowCountryPicker(true)}
+                  onPress={() => setShowCountryCodePicker(true)}
                 >
                   <Text style={styles.countryShortCode}>
                     {selectedCountry.shortCode}
@@ -355,6 +368,7 @@ export default function SignUp() {
                   style={[styles.phoneInput, errors.phone && styles.inputError]}
                   placeholder="555 555001"
                   placeholderTextColor="#999"
+                  underlineColorAndroid="transparent"
                   value={formData.phone}
                   onChangeText={(text) => handleInputChange("phone", text)}
                   keyboardType="phone-pad"
@@ -371,6 +385,7 @@ export default function SignUp() {
                 style={[styles.input, errors.email && styles.inputError]}
                 placeholder="your.email@example.com"
                 placeholderTextColor="#999"
+                underlineColorAndroid="#DDDDDD"
                 value={formData.email || ""}
                 onChangeText={(text) => handleInputChange("email", text)}
                 keyboardType="email-address"
@@ -394,6 +409,7 @@ export default function SignUp() {
                 style={[styles.input, errors.birthday && styles.inputError]}
                 placeholder="16/02/2001"
                 placeholderTextColor="#999"
+                underlineColorAndroid="#DDDDDD"
                 value={formData.birthday}
                 onChangeText={handleBirthdayChange}
                 keyboardType="numeric"
@@ -418,6 +434,7 @@ export default function SignUp() {
               style={[styles.input, errors.password && styles.inputError]}
               placeholder="••••••••••••"
               placeholderTextColor="#999"
+              underlineColorAndroid="#DDDDDD"
               value={formData.password}
               onChangeText={(text) => handleInputChange("password", text)}
               secureTextEntry={!showPassword}
@@ -447,6 +464,7 @@ export default function SignUp() {
               ]}
               placeholder="••••••••••••"
               placeholderTextColor="#999"
+              underlineColorAndroid="#DDDDDD"
               value={formData.confirmPassword}
               onChangeText={(text) =>
                 handleInputChange("confirmPassword", text)
@@ -470,16 +488,7 @@ export default function SignUp() {
 
           {/* Instagram Account */}
           <View style={styles.inputGroup}>
-            <View style={styles.labelRow}>
-              <Text style={styles.label}>Instagram Account link</Text>
-              {formData.instagramAccount && (
-                <TouchableOpacity
-                  onPress={() => openLink(formData.instagramAccount)}
-                >
-                  <Text style={styles.linkText}>Open</Text>
-                </TouchableOpacity>
-              )}
-            </View>
+            <Text style={styles.label}>Instagram Account link</Text>
             <TextInput
               style={[
                 styles.input,
@@ -487,6 +496,7 @@ export default function SignUp() {
               ]}
               placeholder="https://www.instagram.com/nataliajoana/"
               placeholderTextColor="#999"
+              underlineColorAndroid="#DDDDDD"
               value={formData.instagramAccount}
               onChangeText={(text) =>
                 handleInputChange("instagramAccount", text)
@@ -503,16 +513,7 @@ export default function SignUp() {
 
           {/* Facebook Account */}
           <View style={styles.inputGroup}>
-            <View style={styles.labelRow}>
-              <Text style={styles.label}>Facebook Account link</Text>
-              {formData.facebookAccount && (
-                <TouchableOpacity
-                  onPress={() => openLink(formData.facebookAccount)}
-                >
-                  <Text style={styles.linkText}>Open</Text>
-                </TouchableOpacity>
-              )}
-            </View>
+            <Text style={styles.label}>Facebook Account link</Text>
             <TextInput
               style={[
                 styles.input,
@@ -520,6 +521,7 @@ export default function SignUp() {
               ]}
               placeholder="https://www.facebook.com/nataliajoana/"
               placeholderTextColor="#999"
+              underlineColorAndroid="#DDDDDD"
               value={formData.facebookAccount}
               onChangeText={(text) =>
                 handleInputChange("facebookAccount", text)
@@ -537,18 +539,18 @@ export default function SignUp() {
           {/* Country of Residence */}
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Country of residence</Text>
-            <TextInput
+            <TouchableOpacity
               style={[
-                styles.input,
+                styles.countrySelector,
                 errors.countryOfResidence && styles.inputError,
               ]}
-              placeholder="Georgia"
-              placeholderTextColor="#999"
-              value={formData.countryOfResidence}
-              onChangeText={(text) =>
-                handleInputChange("countryOfResidence", text)
-              }
-            />
+              onPress={() => setShowCountryPicker(true)}
+            >
+              <Ionicons name="chevron-down" size={20} color="#AAAAAA" />
+              <Text style={styles.countrySelectorText}>
+                {formData.countryOfResidence || "Select Country"}
+              </Text>
+            </TouchableOpacity>
             {errors.countryOfResidence && (
               <Text style={styles.errorText}>{errors.countryOfResidence}</Text>
             )}
@@ -569,7 +571,7 @@ export default function SignUp() {
                 <Ionicons
                   name={formData.acceptTerms ? "checkbox" : "square-outline"}
                   size={20}
-                  color={formData.acceptTerms ? "#007AFF" : "#999"}
+                  color={formData.acceptTerms ? "#007AFF" : "#AAAAAA"}
                 />
               </TouchableOpacity>
               <Text style={styles.termsText}>
@@ -643,14 +645,23 @@ export default function SignUp() {
         visible={showCalendar}
         animationType="slide"
         transparent={true}
+        statusBarTranslucent={true}
         onRequestClose={() => setShowCalendar(false)}
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPress={() => setShowCalendar(false)}
+        >
+          <TouchableOpacity
+            style={styles.modalContent}
+            activeOpacity={1}
+            onPress={(e) => e.stopPropagation()}
+          >
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Select Birthday</Text>
               <TouchableOpacity onPress={() => setShowCalendar(false)}>
-                <Ionicons name="close" size={24} color="#333" />
+                <Ionicons name="close" size={24} color="#000000" />
               </TouchableOpacity>
             </View>
             <ScrollView style={styles.calendarContainer}>
@@ -704,8 +715,8 @@ export default function SignUp() {
                 </ScrollView>
               </View>
             </ScrollView>
-          </View>
-        </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
       </Modal>
 
       {/* Country Picker Modal */}
@@ -713,14 +724,23 @@ export default function SignUp() {
         visible={showCountryPicker}
         animationType="slide"
         transparent={true}
+        statusBarTranslucent={true}
         onRequestClose={() => setShowCountryPicker(false)}
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPress={() => setShowCountryPicker(false)}
+        >
+          <TouchableOpacity
+            style={styles.modalContent}
+            activeOpacity={1}
+            onPress={(e) => e.stopPropagation()}
+          >
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Select Country</Text>
               <TouchableOpacity onPress={() => setShowCountryPicker(false)}>
-                <Ionicons name="close" size={24} color="#333" />
+                <Ionicons name="close" size={24} color="#000000" />
               </TouchableOpacity>
             </View>
             <ScrollView style={styles.countriesList}>
@@ -729,8 +749,53 @@ export default function SignUp() {
                   key={country.code}
                   style={styles.countryItem}
                   onPress={() => {
-                    setSelectedCountry(country);
+                    // Set country for residence field
+                    handleInputChange("countryOfResidence", country.name);
                     setShowCountryPicker(false);
+                  }}
+                >
+                  <Text style={styles.countryFlag}>{country.flag}</Text>
+                  <Text style={styles.countryName}>{country.name}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Modal>
+
+      {/* Country Code Picker Modal for Phone */}
+      <Modal
+        visible={showCountryCodePicker}
+        animationType="slide"
+        transparent={true}
+        statusBarTranslucent={true}
+        onRequestClose={() => setShowCountryCodePicker(false)}
+      >
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPress={() => setShowCountryCodePicker(false)}
+        >
+          <TouchableOpacity
+            style={styles.modalContent}
+            activeOpacity={1}
+            onPress={(e) => e.stopPropagation()}
+          >
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Country Code</Text>
+              <TouchableOpacity onPress={() => setShowCountryCodePicker(false)}>
+                <Ionicons name="close" size={24} color="#000000" />
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.countriesList}>
+              {countries.map((country) => (
+                <TouchableOpacity
+                  key={country.code}
+                  style={styles.countryItem}
+                  onPress={() => {
+                    // Set country for phone code
+                    setSelectedCountry(country);
+                    setShowCountryCodePicker(false);
                   }}
                 >
                   <Text style={styles.countryFlag}>{country.flag}</Text>
@@ -739,8 +804,8 @@ export default function SignUp() {
                 </TouchableOpacity>
               ))}
             </ScrollView>
-          </View>
-        </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
       </Modal>
     </SafeAreaView>
   );
@@ -767,15 +832,15 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
-    color: "#333",
-    marginBottom: 8,
+    color: "#000000",
+    marginBottom: 38,
   },
   subtitle: {
     fontSize: 14,
-    color: "#666",
-    marginBottom: 30,
+    color: "#aaaaaa",
+    marginBottom: 63,
     lineHeight: 20,
   },
   inputGroup: {
@@ -785,7 +850,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: "500",
-    color: "#333",
+    color: "#000000",
     marginBottom: 8,
   },
   input: {
@@ -794,11 +859,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
-    color: "#333",
+    color: "#000000",
     borderWidth: 0,
+    paddingRight: 30,
+  },
+  inputWrapper: {
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#DDDDDD",
-    paddingRight: 30,
+    position: "relative",
   },
   inputIcon: {
     position: "absolute",
@@ -812,7 +881,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   emailOption: {
-    color: "#AAAAAA",
+    color: "#aaaaaa",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -820,9 +889,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     position: "relative",
+    paddingBottom: 0,
+    paddingHorizontal: 0,
     borderBottomWidth: 1,
     borderBottomColor: "#DDDDDD",
-    paddingBottom: 8,
   },
   countryCode: {
     backgroundColor: "transparent",
@@ -830,10 +900,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
-    color: "#333",
+    color: "#000000",
     borderWidth: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: "#DDDDDD",
     width: 60,
     textAlign: "center",
   },
@@ -843,14 +911,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
-    color: "#333",
+    color: "#000000",
     borderWidth: 0,
     flex: 1,
+    paddingRight: 50,
   },
   termsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 25,
+    marginBottom: 9,
     paddingHorizontal: 5,
   },
   checkbox: {
@@ -858,7 +927,7 @@ const styles = StyleSheet.create({
   },
   termsText: {
     fontSize: 12,
-    color: "#666",
+    color: "#AAAAAA",
     flex: 1,
   },
   termsLink: {
@@ -869,7 +938,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   signUpButton: {
-    backgroundColor: "#4A5568",
+    backgroundColor: "#263238",
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: "center",
@@ -894,7 +963,7 @@ const styles = StyleSheet.create({
   },
   socialText: {
     fontSize: 12,
-    color: "#666",
+    color: "#AAAAAA",
     marginRight: 15,
   },
   socialButtons: {
@@ -929,14 +998,14 @@ const styles = StyleSheet.create({
   phoneInputIcon: {
     position: "absolute",
     right: 0,
-    top: 12,
+    top: 10,
   },
   footer: {
     alignItems: "center",
   },
   footerText: {
     fontSize: 14,
-    color: "#666",
+    color: "#AAAAAA",
     textAlign: "center",
   },
   footerLink: {
@@ -944,8 +1013,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   inputError: {
-    borderColor: "#FF3B30",
-    borderWidth: 1,
+    borderBottomColor: "#FF3B30",
   },
   errorText: {
     color: "#FF3B30",
@@ -969,7 +1037,7 @@ const styles = StyleSheet.create({
   calendarIcon: {
     position: "absolute",
     right: -5,
-    top: 12,
+    top: 1,
     padding: 5,
   },
   countryCodeButton: {
@@ -978,7 +1046,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 12,
     fontSize: 14,
-    color: "#333",
+    color: "#AAAAAA",
     borderWidth: 0,
     minWidth: 80,
     flexDirection: "row",
@@ -991,13 +1059,33 @@ const styles = StyleSheet.create({
   },
   countryShortCode: {
     fontSize: 14,
-    color: "#333",
+    color: "#AAAAAA",
     fontWeight: "500",
   },
   countryCodeText: {
     fontSize: 14,
-    color: "#333",
+    color: "#AAAAAA",
     fontWeight: "500",
+  },
+  countrySelector: {
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 12,
+    fontSize: 14,
+    color: "#000000",
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#DDDDDD",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    gap: 8,
+  },
+  countrySelectorText: {
+    fontSize: 14,
+    color: "#AAAAAA",
+    flex: 1,
   },
   modalOverlay: {
     flex: 1,
@@ -1021,7 +1109,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#333",
+    color: "#000000",
   },
   countriesList: {
     padding: 20,
@@ -1037,7 +1125,7 @@ const styles = StyleSheet.create({
   countryName: {
     flex: 1,
     fontSize: 16,
-    color: "#333",
+    color: "#000000",
     marginLeft: 12,
   },
   calendarContainer: {
@@ -1052,7 +1140,7 @@ const styles = StyleSheet.create({
   datePickerLabel: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#333",
+    color: "#000000",
     textAlign: "center",
     flex: 1,
   },
@@ -1070,6 +1158,6 @@ const styles = StyleSheet.create({
   },
   datePickerText: {
     fontSize: 16,
-    color: "#333",
+    color: "#000000",
   },
 });

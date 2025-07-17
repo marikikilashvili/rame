@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#2C3E50",
+    color: "##2C3E50",
     marginBottom: 12,
     textAlign: "center",
   },
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 16,
     fontSize: 16,
-    color: "#2C3E50",
+    color: "##2C3E50",
   },
   sportsContainer: {
     flex: 1,
@@ -194,12 +194,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   sportButtonSelected: {
-    backgroundColor: "#2C3E50",
-    borderColor: "#2C3E50",
+    backgroundColor: "##2C3E50",
+    borderColor: "##2C3E50",
   },
   sportButtonText: {
     fontSize: 14,
-    color: "#2C3E50",
+    color: "##2C3E50",
     fontWeight: "500",
   },
   sportButtonTextSelected: {
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   nextButton: {
-    backgroundColor: "#2C3E50",
+    backgroundColor: "##2C3E50",
     paddingVertical: 16,
     borderRadius: 12,
     marginBottom: 16,

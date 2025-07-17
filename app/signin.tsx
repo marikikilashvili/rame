@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   headerContainer: {
-    backgroundColor: "#2C3E50",
+    backgroundColor: "#263238",
     height: 280,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   signInButton: {
-    backgroundColor: "#2C3E50",
+    backgroundColor: "#263238",
     paddingVertical: 16,
     borderRadius: 12,
     marginBottom: 32,

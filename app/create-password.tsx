@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     fontWeight: "bold",
-    color: "#263238",
+    color: "#2C3E50",
     marginBottom: 40,
     textAlign: "left",
   },
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     top: 12,
   },
   verifyButton: {
-    backgroundColor: "#2C3E50",
+    backgroundColor: "##2C3E50",
     paddingVertical: 16,
     borderRadius: 8,
     alignItems: "center",

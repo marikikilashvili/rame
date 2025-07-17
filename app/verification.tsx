@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
-  Dimensions,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -11,110 +11,87 @@ import {
   View,
 } from "react-native";
 
-const { width } = Dimensions.get("window");
-
 export default function Verification() {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [timer, setTimer] = useState(60);
-  const [canResend, setCanResend] = useState(false);
-  const inputs = useRef<(TextInput | null)[]>([]);
+  const [otp, setOtp] = useState(["", "", "", "", ""]);
+  const [timer, setTimer] = useState(30);
+  const inputRefs = useRef<(TextInput | null)[]>([]);
 
   useEffect(() => {
-    // Start countdown timer
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          setCanResend(true);
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer(timer - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
 
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleOtpChange = (text: string, index: number) => {
+  const handleOtpChange = (value: string, index: number) => {
     const newOtp = [...otp];
-    newOtp[index] = text;
+    newOtp[index] = value;
     setOtp(newOtp);
 
     // Auto-focus next input
-    if (text && index < 5) {
-      inputs.current[index + 1]?.focus();
+    if (value && index < 4) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
-  const handleKeyPress = (key: string, index: number) => {
-    if (key === "Backspace" && !otp[index] && index > 0) {
-      inputs.current[index - 1]?.focus();
+  const handleKeyPress = (e: any, index: number) => {
+    // Handle backspace to go to previous input
+    if (e.nativeEvent.key === "Backspace" && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
     }
   };
 
-  const handleVerify = async () => {
+  const handleVerify = () => {
     const otpString = otp.join("");
-    if (otpString.length !== 6) {
-      Alert.alert("Error", "Please enter complete verification code");
+    if (otpString.length !== 5) {
+      Alert.alert("Error", "Please enter the complete verification code");
       return;
     }
 
-    setIsLoading(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // Navigate to onboarding
-      router.push("/sports");
-    }, 1500);
+    // Navigate to profile setup
+    router.push("/profile-setup" as any);
   };
 
-  const handleResendCode = () => {
-    if (!canResend) return;
+  const handleResendOtp = () => {
+    setTimer(30);
+    Alert.alert(
+      "OTP Sent",
+      "A new verification code has been sent to your email"
+    );
+  };
 
-    Alert.alert("Success", "Verification code sent!");
-    setTimer(60);
-    setCanResend(false);
-    setOtp(["", "", "", "", "", ""]);
-    inputs.current[0]?.focus();
+  const handleBack = () => {
+    router.back();
   };
 
   return (
-    <View style={styles.container}>
-      {/* Header */}
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="#333" />
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+          <Ionicons name="chevron-back" size={24} color="#333" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Verification</Text>
-        <View style={{ width: 24 }} />
       </View>
 
-      {/* Content */}
       <View style={styles.content}>
-        <View style={styles.iconContainer}>
-          <Ionicons name="mail-outline" size={64} color="#007AFF" />
-        </View>
-
-        <Text style={styles.title}>Check your SMS</Text>
-        <Text style={styles.subtitle}>
-          We've sent a verification code to{"\n"}
-          <Text style={styles.phoneNumber}>+1 555 555001</Text>
+        <Text style={styles.description}>
+          Please enter the verification code we sent {"\n"} to your email{" "}
+          <Text style={styles.emailText}>ex***@gmail.com</Text>
         </Text>
 
-        {/* OTP Input */}
         <View style={styles.otpContainer}>
           {otp.map((digit, index) => (
             <TextInput
               key={index}
-              ref={(ref) => (inputs.current[index] = ref)}
-              style={[styles.otpInput, digit ? styles.otpInputFilled : null]}
+              ref={(ref) => {
+                inputRefs.current[index] = ref;
+              }}
+              style={styles.otpInput}
               value={digit}
-              onChangeText={(text) => handleOtpChange(text, index)}
-              onKeyPress={({ nativeEvent }) =>
-                handleKeyPress(nativeEvent.key, index)
-              }
+              onChangeText={(value) => handleOtpChange(value, index)}
+              onKeyPress={(e) => handleKeyPress(e, index)}
               keyboardType="numeric"
               maxLength={1}
               textAlign="center"
@@ -123,44 +100,25 @@ export default function Verification() {
           ))}
         </View>
 
-        {/* Timer */}
-        <View style={styles.timerContainer}>
-          <Text style={styles.timerText}>
-            {canResend ? (
-              <TouchableOpacity onPress={handleResendCode}>
-                <Text style={styles.resendText}>Resend code</Text>
-              </TouchableOpacity>
-            ) : (
-              `Resend code in ${timer}s`
-            )}
-          </Text>
+        <Text style={styles.timerText}>
+          {String(Math.floor(timer / 60)).padStart(2, "0")}:
+          {String(timer % 60).padStart(2, "0")} sec left
+        </Text>
+
+        <View style={styles.resendContainer}>
+          <Text style={styles.resendText}>Not yet get? </Text>
+          <TouchableOpacity onPress={handleResendOtp} disabled={timer > 0}>
+            <Text style={[styles.resendLink, timer > 0 && styles.disabledLink]}>
+              Resend OTP
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Verify Button */}
-        <TouchableOpacity
-          style={[
-            styles.verifyButton,
-            otp.join("").length === 6 && styles.verifyButtonActive,
-          ]}
-          onPress={handleVerify}
-          disabled={otp.join("").length !== 6 || isLoading}
-        >
-          <Text style={styles.verifyButtonText}>
-            {isLoading ? "Verifying..." : "Verify"}
-          </Text>
+        <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
+          <Text style={styles.verifyButtonText}>Verify</Text>
         </TouchableOpacity>
-
-        {/* Alternative verification */}
-        <View style={styles.alternativeContainer}>
-          <Text style={styles.alternativeText}>
-            Didn't receive the code?{" "}
-            <TouchableOpacity onPress={() => Alert.alert("Call", "Calling...")}>
-              <Text style={styles.alternativeLink}>Call us</Text>
-            </TouchableOpacity>
-          </Text>
-        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -172,101 +130,92 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingVertical: 15,
-    paddingTop: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E9ECEF",
+    paddingTop: 20,
+    paddingBottom: 20,
+    justifyContent: "center",
+    position: "relative",
+  },
+  backButton: {
+    position: "absolute",
+    left: 20,
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "700",
     color: "#333",
+    textAlign: "center",
   },
   content: {
     flex: 1,
-    paddingHorizontal: 30,
-    paddingTop: 40,
-    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 127,
   },
-  iconContainer: {
-    marginBottom: 30,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
-    textAlign: "center",
+  description: {
+    fontSize: 14,
+    color: "#AAAAAA",
+    lineHeight: 20,
     marginBottom: 40,
-    lineHeight: 24,
   },
-  phoneNumber: {
-    fontWeight: "600",
-    color: "#333",
+  emailText: {
+    color: "#007AFF",
+    fontWeight: "500",
   },
   otpContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 30,
-    width: width - 80,
+    width: 210,
+    height: 40,
+    alignSelf: "center",
   },
   otpInput: {
-    width: 45,
-    height: 45,
-    borderWidth: 2,
-    borderColor: "#E9ECEF",
-    borderRadius: 8,
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#125BE4",
-    backgroundColor: "#F8F9FA",
-  },
-  otpInputFilled: {
+    width: 30,
+    height: 40,
+    borderWidth: 1,
     borderColor: "#DDDDDD",
+    borderRadius: 8,
     backgroundColor: "#FFFFFF",
-  },
-  timerContainer: {
-    marginBottom: 30,
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+    textAlign: "center",
+    paddingVertical: 8,
   },
   timerText: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "#007AFF",
+    fontWeight: "500",
+    marginBottom: 20,
+  },
+  resendContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 52,
+  },
+  resendText: {
     fontSize: 14,
     color: "#666",
   },
-  resendText: {
+  resendLink: {
+    fontSize: 14,
     color: "#007AFF",
-    fontWeight: "600",
+    fontWeight: "500",
+  },
+  disabledLink: {
+    color: "#999",
   },
   verifyButton: {
-    backgroundColor: "#CBD5E0",
-    paddingVertical: 15,
-    paddingHorizontal: 50,
-    borderRadius: 25,
-    marginBottom: 30,
-  },
-  verifyButtonActive: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#2C3E50",
+    paddingVertical: 16,
+    borderRadius: 11,
+    alignItems: "center",
+    marginBottom: 20,
   },
   verifyButtonText: {
     color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: "600",
-  },
-  alternativeContainer: {
-    marginTop: 20,
-  },
-  alternativeText: {
-    fontSize: 14,
-    color: "#666",
-    textAlign: "center",
-  },
-  alternativeLink: {
-    color: "#007AFF",
     fontWeight: "600",
   },
 });

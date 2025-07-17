@@ -1,139 +1,251 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 
 export default function Main() {
+  const [likedPosts, setLikedPosts] = useState(new Set());
+
+  const toggleLike = (postId) => {
+    setLikedPosts((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+      } else {
+        newSet.add(postId);
+      }
+      return newSet;
+    });
+  };
+
+  const posts = [
+    {
+      id: 1,
+      username: "Vakhtang Vakhtangadze",
+      handle: "@Mamarda",
+      time: "7h",
+      verified: true,
+      content:
+        "The best keeper in the Universe უტიერმებრი ხელოვნება ხელოვნობისაა დღეში",
+      image: require("../assets/images/stadium.png"),
+      likes: 12,
+      comments: 3,
+      shares: 1,
+    },
+    {
+      id: 2,
+      username: "Vakhtang Vakhtangadze",
+      handle: "@Mamarda",
+      time: "12h",
+      verified: true,
+      content:
+        "Amazing match today! Champions League finals were incredible უტიერმებრი ხელოვნება",
+      image: require("../assets/images/stadium.png"),
+      likes: 25,
+      comments: 8,
+      shares: 4,
+    },
+    {
+      id: 3,
+      username: "Vakhtang Vakhtangadze",
+      handle: "@Mamarda",
+      time: "1d",
+      verified: true,
+      content:
+        "Training session completed. Ready for the next big game! უტიერმებრი ხელოვნება ხელოვნობისაა",
+      image: require("../assets/images/stadium.png"),
+      likes: 18,
+      comments: 5,
+      shares: 2,
+    },
+    {
+      id: 4,
+      username: "Vakhtang Vakhtangadze",
+      handle: "@Mamarda",
+      time: "2d",
+      verified: true,
+      content:
+        "Great atmosphere at the stadium today! Fans were amazing უტიერმებრი ხელოვნება დღეში",
+      image: require("../assets/images/stadium.png"),
+      likes: 32,
+      comments: 12,
+      shares: 6,
+    },
+    {
+      id: 5,
+      username: "Vakhtang Vakhtangadze",
+      handle: "@Mamarda",
+      time: "3d",
+      verified: true,
+      content:
+        "Victory! What a game! Thank you to all the supporters უტიერმებრი ხელოვნება ხელოვნობისაა დღეში",
+      image: require("../assets/images/stadium.png"),
+      likes: 45,
+      comments: 20,
+      shares: 10,
+    },
+  ];
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <TouchableOpacity>
-            <Ionicons name="menu" size={24} color="#333" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Sportverse</Text>
+        <View style={styles.searchContainer}>
+          <Ionicons name="search" size={20} color="#8E8E93" />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search ..."
+            placeholderTextColor="#8E8E93"
+          />
         </View>
-        <View style={styles.headerRight}>
-          <TouchableOpacity style={styles.headerIcon}>
-            <Ionicons name="search" size={24} color="#333" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
-            <Ionicons name="notifications" size={24} color="#333" />
-          </TouchableOpacity>
+
+        <View style={styles.headerBottom}>
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo1.png")}
+              style={styles.logoImage}
+            />
+          </View>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.tabsScrollView}
+            contentContainerStyle={styles.tabsContainer}
+          >
+            <TouchableOpacity style={styles.tab}>
+              <Image
+                source={require("../assets/images/shape.png")}
+                style={styles.tabImage}
+              />
+              <Text style={styles.tabText}>Niki</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.tab}>
+              <Image
+                source={require("../assets/images/shape.png")}
+                style={styles.tabImage}
+              />
+              <Text style={styles.tabText}>Reçar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.tab}>
+              <Image
+                source={require("../assets/images/shape.png")}
+                style={styles.tabImage}
+              />
+              <Text style={styles.tabText}>Sherry</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.tab}>
+              <Image
+                source={require("../assets/images/shape.png")}
+                style={styles.tabImage}
+              />
+              <Text style={styles.tabText}>Alon</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Welcome Section */}
-        <View style={styles.welcomeSection}>
-          <Text style={styles.welcomeTitle}>Welcome to Sportverse!</Text>
-          <Text style={styles.welcomeSubtitle}>
-            Your ultimate sports and content creation platform
-          </Text>
-        </View>
+        {posts.map((post) => (
+          <View key={post.id} style={styles.postWrapper}>
+            <View style={styles.postContainer}>
+              {/* Post Header */}
+              <View style={styles.postHeader}>
+                <View style={styles.userInfo}>
+                  <View style={styles.avatar}>
+                    <Image
+                      source={require("../assets/images/img.png")}
+                      style={styles.avatarImage}
+                    />
+                  </View>
+                  <View style={styles.userDetails}>
+                    <View style={styles.nameContainer}>
+                      <Text style={styles.username}>{post.username}</Text>
+                      {post.verified && (
+                        <Ionicons
+                          name="checkmark-circle"
+                          size={16}
+                          color="#1DA1F2"
+                        />
+                      )}
+                    </View>
+                    <Text style={styles.handle}>{post.handle}</Text>
+                  </View>
+                </View>
+                <View style={styles.postTime}>
+                  <Text style={styles.timeText}>{post.time}</Text>
+                  <TouchableOpacity>
+                    <Ionicons
+                      name="ellipsis-horizontal"
+                      size={20}
+                      color="#657786"
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
 
-        {/* Quick Actions */}
-        <View style={styles.quickActions}>
-          <TouchableOpacity style={styles.actionCard}>
-            <Ionicons name="camera" size={32} color="#007AFF" />
-            <Text style={styles.actionText}>Create Content</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionCard}>
-            <Ionicons name="people" size={32} color="#007AFF" />
-            <Text style={styles.actionText}>Connect</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionCard}>
-            <Ionicons name="trophy" size={32} color="#007AFF" />
-            <Text style={styles.actionText}>Compete</Text>
-          </TouchableOpacity>
-        </View>
+              {/* Post Content */}
+              <View style={styles.postContent}>
+                <Text style={styles.postText}>{post.content}</Text>
+                <View style={styles.imageContainer}>
+                  <Image source={post.image} style={styles.postImage} />
+                </View>
+              </View>
 
-        {/* Recent Activity */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Recent Activity</Text>
-          <View style={styles.activityCard}>
-            <View style={styles.activityIcon}>
-              <Ionicons name="checkmark-circle" size={24} color="#34C759" />
-            </View>
-            <View style={styles.activityContent}>
-              <Text style={styles.activityTitle}>Account Verified</Text>
-              <Text style={styles.activitySubtitle}>
-                Your account has been successfully verified
-              </Text>
+              {/* Post Actions */}
+              <View style={styles.postActions}>
+                <View style={styles.leftActions}>
+                  <TouchableOpacity
+                    style={styles.actionButton}
+                    onPress={() => toggleLike(post.id)}
+                  >
+                    <Ionicons
+                      name={likedPosts.has(post.id) ? "heart" : "heart-outline"}
+                      size={25}
+                      color={likedPosts.has(post.id) ? "#FF3040" : "#000000"}
+                      style={
+                        likedPosts.has(post.id)
+                          ? {}
+                          : {
+                              shadowColor: "#000000",
+                              shadowOffset: { width: 0, height: 0 },
+                              shadowOpacity: 1,
+                              shadowRadius: 0,
+                            }
+                      }
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.actionButton}>
+                    <Image
+                      source={require("../assets/images/comment.png")}
+                      style={styles.actionIcon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.actionButton}>
+                    <Image
+                      source={require("../assets/images/share.png")}
+                      style={styles.actionIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity style={styles.actionButton}>
+                  <Image
+                    source={require("../assets/images/save.png")}
+                    style={styles.actionIcon}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-
-        {/* Featured Content */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Featured Content</Text>
-          <View style={styles.featuredCard}>
-            <View style={styles.featuredImage}>
-              <Ionicons name="play-circle" size={48} color="#007AFF" />
-            </View>
-            <View style={styles.featuredContent}>
-              <Text style={styles.featuredTitle}>
-                Getting Started with Sportverse
-              </Text>
-              <Text style={styles.featuredSubtitle}>
-                Learn how to create amazing sports content
-              </Text>
-              <TouchableOpacity style={styles.watchButton}>
-                <Text style={styles.watchButtonText}>Watch Now</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        {/* Stats */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Your Stats</Text>
-          <View style={styles.statsContainer}>
-            <View style={styles.statCard}>
-              <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Posts</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Followers</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Following</Text>
-            </View>
-          </View>
-        </View>
+        ))}
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="home" size={24} color="#007AFF" />
-          <Text style={[styles.navText, { color: "#007AFF" }]}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="search" size={24} color="#999" />
-          <Text style={styles.navText}>Explore</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="add-circle" size={24} color="#999" />
-          <Text style={styles.navText}>Create</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="heart" size={24} color="#999" />
-          <Text style={styles.navText}>Activity</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="person" size={24} color="#999" />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
@@ -141,177 +253,206 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#263238",
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    backgroundColor: "#263238",
     paddingHorizontal: 20,
     paddingVertical: 15,
     paddingTop: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E9ECEF",
   },
-  headerLeft: {
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#263238",
+    paddingHorizontal: 0,
+    paddingVertical: 10,
+    borderRadius: 8,
+    marginBottom: 5,
+  },
+  searchInput: {
+    flex: 1,
+    color: "#E0E0E0",
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  headerBottom: {
     flexDirection: "row",
     alignItems: "center",
   },
-  headerTitle: {
-    fontSize: 20,
+  logoContainer: {
+    alignItems: "center",
+    marginRight: 20,
+  },
+  logoImage: {
+    width: 60,
+    height: 60,
+    resizeMode: "contain",
+  },
+  logoText: {
+    fontSize: 32,
     fontWeight: "bold",
-    color: "#333",
-    marginLeft: 15,
+    color: "#FFFFFF",
   },
-  headerRight: {
+  tabsScrollView: {
+    flex: 1,
+  },
+  tabsContainer: {
     flexDirection: "row",
+    alignItems: "center",
+    paddingRight: 20,
   },
-  headerIcon: {
-    marginLeft: 15,
+  tab: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    alignItems: "center",
+    flexDirection: "column",
+    marginRight: 10,
+  },
+  tabImage: {
+    width: 40,
+    height: 40,
+    resizeMode: "contain",
+    marginBottom: 5,
+  },
+  tabText: {
+    color: "#FFFFFF",
+    fontSize: 12,
+    fontWeight: "500",
   },
   content: {
     flex: 1,
+    backgroundColor: "#F5F5F5",
+  },
+  postWrapper: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+    marginTop: 51,
+  },
+  postContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    paddingTop: 20,
     paddingHorizontal: 20,
+    paddingBottom: 36,
+    shadowColor: "#AAAAAA",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  welcomeSection: {
-    paddingVertical: 30,
-    alignItems: "center",
-  },
-  welcomeTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 8,
-  },
-  welcomeSubtitle: {
-    fontSize: 16,
-    color: "#666",
-    textAlign: "center",
-  },
-  quickActions: {
+  postHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 30,
+    alignItems: "flex-start",
+    marginBottom: 12,
   },
-  actionCard: {
-    flex: 1,
-    backgroundColor: "#F8F9FA",
-    borderRadius: 12,
-    padding: 20,
-    alignItems: "center",
-    marginHorizontal: 5,
-  },
-  actionText: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#333",
-    marginTop: 8,
-  },
-  section: {
-    marginBottom: 30,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 15,
-  },
-  activityCard: {
+  userInfo: {
     flexDirection: "row",
-    backgroundColor: "#F8F9FA",
-    borderRadius: 12,
-    padding: 15,
     alignItems: "center",
-  },
-  activityIcon: {
-    marginRight: 15,
-  },
-  activityContent: {
     flex: 1,
   },
-  activityTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#333",
-    marginBottom: 4,
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 12,
+    overflow: "hidden",
   },
-  activitySubtitle: {
-    fontSize: 14,
-    color: "#666",
-  },
-  featuredCard: {
-    backgroundColor: "#F8F9FA",
-    borderRadius: 12,
-    padding: 20,
-    alignItems: "center",
-  },
-  featuredImage: {
-    marginBottom: 15,
-  },
-  featuredContent: {
-    alignItems: "center",
-  },
-  featuredTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 8,
-    textAlign: "center",
-  },
-  featuredSubtitle: {
-    fontSize: 14,
-    color: "#666",
-    textAlign: "center",
-    marginBottom: 15,
-  },
-  watchButton: {
-    backgroundColor: "#007AFF",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+  avatarImage: {
+    width: 40,
+    height: 40,
     borderRadius: 20,
   },
-  watchButtonText: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "600",
+  userDetails: {
+    flex: 1,
   },
-  statsContainer: {
+  nameContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  username: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#14171A",
+  },
+  handle: {
+    fontSize: 15,
+    color: "#657786",
+    marginTop: 2,
+  },
+  postTime: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  timeText: {
+    fontSize: 15,
+    color: "#657786",
+  },
+  postContent: {
+    marginBottom: 12,
+  },
+  postText: {
+    fontSize: 15,
+    color: "#14171A",
+    lineHeight: 20,
+    marginBottom: 12,
+  },
+  imageContainer: {
+    borderRadius: 20,
+    overflow: "hidden",
+    marginBottom: 12,
+    position: "relative",
+    alignItems: "center",
+  },
+  postImage: {
+    padding: 10,
+    width: "100%",
+    height: 220,
+    resizeMode: "cover",
+    borderRadius: 16,
+  },
+  imageSizeOverlay: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    backgroundColor: "#8B5CF6",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  imageSizeText: {
+    color: "#FFFFFF",
+    fontSize: 12,
+    fontWeight: "500",
+  },
+  postActions: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  statCard: {
-    flex: 1,
-    backgroundColor: "#F8F9FA",
-    borderRadius: 12,
-    padding: 20,
     alignItems: "center",
-    marginHorizontal: 5,
+    paddingTop: 0,
   },
-  statNumber: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 14,
-    color: "#666",
-  },
-  bottomNav: {
+  leftActions: {
     flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    borderTopWidth: 1,
-    borderTopColor: "#E9ECEF",
-    paddingVertical: 10,
-    paddingBottom: 30,
-  },
-  navItem: {
-    flex: 1,
     alignItems: "center",
+    gap: 20,
   },
-  navText: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 4,
+  actionButton: {
+    padding: 0,
+  },
+  actionIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+  },
+  actionText: {
+    fontSize: 13,
+    color: "#657786",
+    fontWeight: "500",
   },
 });

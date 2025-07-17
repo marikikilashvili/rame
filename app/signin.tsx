@@ -108,219 +108,228 @@ export default function SignIn() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
+    <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
-        {/* Header with curved background */}
-        <View style={styles.headerContainer}>
-          <View style={styles.logoContainer}>
-            <View style={styles.logoWrapper}>
-              <Image
-                source={require("../assets/images/logo1.png")}
-                style={styles.logoImage}
-              />
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          bounces={false}
+        >
+          {/* Header with curved background */}
+          <View style={styles.headerContainer}>
+            <View style={styles.logoContainer}>
+              <View style={styles.logoWrapper}>
+                <Image
+                  source={require("../assets/images/logo1.png")}
+                  style={styles.logoImage}
+                />
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* Main Content */}
-        <View style={styles.mainContent}>
-          <Text style={styles.title}>Sign in</Text>
-          <Text style={styles.subtitle}>your account</Text>
-          <Text style={styles.description}>
-            Experience the world at your fingertips with our social mobile app!
-          </Text>
-
-          {/* Login Method Toggle */}
-          <View style={styles.toggleContainer}>
-            <Text style={styles.toggleLabel}>
-              {loginMethod === "phone" ? "Phone" : "Email"}
+          {/* Main Content */}
+          <View style={styles.mainContent}>
+            <Text style={styles.title}>Sign in</Text>
+            <Text style={styles.subtitle}>your account</Text>
+            <Text style={styles.description}>
+              Experience the world at your fingertips with our social mobile
+              app!
             </Text>
-            <TouchableOpacity
-              style={styles.toggleButton}
-              onPress={() =>
-                setLoginMethod(loginMethod === "phone" ? "email" : "phone")
-              }
-            >
-              <Text style={styles.toggleText}>
-                {loginMethod === "phone"
-                  ? "Login with Email"
-                  : "Login with Phone"}
+
+            {/* Login Method Toggle */}
+            <View style={styles.toggleContainer}>
+              <Text style={styles.toggleLabel}>
+                {loginMethod === "phone" ? "Phone" : "Email"}
               </Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Input Fields */}
-          <View style={styles.inputContainer}>
-            {loginMethod === "phone" ? (
-              <View style={styles.phoneInputContainer}>
-                <TouchableOpacity
-                  style={styles.countryCode}
-                  onPress={() => setShowCountryPicker(true)}
-                >
-                  <Text style={styles.countryShortCode}>
-                    {selectedCountry.shortCode}
-                  </Text>
-                  <Text style={styles.countryCodeText}>
-                    {selectedCountry.code}
-                  </Text>
-                  <Ionicons name="chevron-down" size={16} color="#666" />
-                </TouchableOpacity>
-                <TextInput
-                  style={styles.phoneInput}
-                  placeholder="555 555001"
-                  placeholderTextColor="#999"
-                  value={phone}
-                  onChangeText={setPhone}
-                  keyboardType="phone-pad"
-                />
-                <TouchableOpacity style={styles.inputIcon}>
-                  <Image
-                    source={require("../assets/images/phone.png")}
-                    style={styles.phoneIcon}
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={styles.emailInputContainer}>
-                <TextInput
-                  style={styles.emailInput}
-                  placeholder="your.email@example.com"
-                  placeholderTextColor="#999"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-                <TouchableOpacity style={styles.inputIcon}>
-                  <Ionicons name="mail-outline" size={20} color="#666" />
-                </TouchableOpacity>
-              </View>
-            )}
-
-            <View style={styles.passwordContainer}>
-              <Text style={styles.passwordLabel}>Password</Text>
-              <View style={styles.passwordInputContainer}>
-                <TextInput
-                  style={styles.passwordInput}
-                  placeholder="••••••••••••••"
-                  placeholderTextColor="#999"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                />
-                <TouchableOpacity
-                  style={styles.passwordToggle}
-                  onPress={() => setShowPassword(!showPassword)}
-                >
-                  <Ionicons
-                    name={showPassword ? "eye-outline" : "eye-off-outline"}
-                    size={20}
-                    color="#666"
-                  />
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={styles.toggleButton}
+                onPress={() =>
+                  setLoginMethod(loginMethod === "phone" ? "email" : "phone")
+                }
+              >
+                <Text style={styles.toggleText}>
+                  {loginMethod === "phone"
+                    ? "Login with Email"
+                    : "Login with Phone"}
+                </Text>
+              </TouchableOpacity>
             </View>
 
+            {/* Input Fields */}
+            <View style={styles.inputContainer}>
+              {loginMethod === "phone" ? (
+                <View style={styles.phoneInputContainer}>
+                  <TouchableOpacity
+                    style={styles.countryCode}
+                    onPress={() => setShowCountryPicker(true)}
+                  >
+                    <Text style={styles.countryShortCode}>
+                      {selectedCountry.shortCode}
+                    </Text>
+                    <Text style={styles.countryCodeText}>
+                      {selectedCountry.code}
+                    </Text>
+                    <Ionicons name="chevron-down" size={16} color="#666" />
+                  </TouchableOpacity>
+                  <TextInput
+                    style={styles.phoneInput}
+                    placeholder="555 555001"
+                    placeholderTextColor="#999"
+                    value={phone}
+                    onChangeText={setPhone}
+                    keyboardType="phone-pad"
+                  />
+                  <TouchableOpacity style={styles.inputIcon}>
+                    <Image
+                      source={require("../assets/images/phone.png")}
+                      style={styles.phoneIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={styles.emailInputContainer}>
+                  <TextInput
+                    style={styles.emailInput}
+                    placeholder="your.email@example.com"
+                    placeholderTextColor="#999"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                  />
+                  <TouchableOpacity style={styles.inputIcon}>
+                    <Ionicons name="mail-outline" size={20} color="#666" />
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              <View style={styles.passwordContainer}>
+                <Text style={styles.passwordLabel}>Password</Text>
+                <View style={styles.passwordInputContainer}>
+                  <TextInput
+                    style={styles.passwordInput}
+                    placeholder="••••••••••••••"
+                    placeholderTextColor="#999"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry={!showPassword}
+                  />
+                  <TouchableOpacity
+                    style={styles.passwordToggle}
+                    onPress={() => setShowPassword(!showPassword)}
+                  >
+                    <Ionicons
+                      name={showPassword ? "eye-outline" : "eye-off-outline"}
+                      size={20}
+                      color="#666"
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <TouchableOpacity
+                style={styles.forgotPassword}
+                onPress={handleForgotPassword}
+              >
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Sign In Button */}
             <TouchableOpacity
-              style={styles.forgotPassword}
-              onPress={handleForgotPassword}
+              style={styles.signInButton}
+              onPress={handleSignIn}
             >
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              <Text style={styles.signInButtonText}>Sign In</Text>
             </TouchableOpacity>
-          </View>
 
-          {/* Sign In Button */}
-          <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-            <Text style={styles.signInButtonText}>Sign In</Text>
-          </TouchableOpacity>
-
-          {/* Social Login */}
-          <View style={styles.socialContainer}>
-            <Text style={styles.socialText}>Or sign in with</Text>
-            <View style={styles.socialContainer1}>
-              <TouchableOpacity
-                style={styles.socialButton}
-                onPress={() => handleSocialLogin("Apple")}
-              >
-                <Image
-                  source={require("../assets/images/apple.png")}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.socialButton}
-                onPress={() => handleSocialLogin("Google")}
-              >
-                <Image
-                  source={require("../assets/images/google.png")}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.socialButton}
-                onPress={() => handleSocialLogin("Facebook")}
-              >
-                <Image
-                  source={require("../assets/images/facebook.png")}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* Footer */}
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>
-              Don't have an account?{" "}
-              <Link href="/signup" style={styles.footerLink}>
-                Sign Up
-              </Link>
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
-
-      {/* Country Picker Modal */}
-      <Modal
-        visible={showCountryPicker}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setShowCountryPicker(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Select Country</Text>
-              <TouchableOpacity onPress={() => setShowCountryPicker(false)}>
-                <Ionicons name="close" size={24} color="#333" />
-              </TouchableOpacity>
-            </View>
-            <ScrollView style={styles.countriesList}>
-              {countries.map((country) => (
+            {/* Social Login */}
+            <View style={styles.socialContainer}>
+              <Text style={styles.socialText}>Or sign in with</Text>
+              <View style={styles.socialContainer1}>
                 <TouchableOpacity
-                  key={country.code}
-                  style={styles.countryItem}
-                  onPress={() => {
-                    setSelectedCountry(country);
-                    setShowCountryPicker(false);
-                  }}
+                  style={styles.socialButton}
+                  onPress={() => handleSocialLogin("Apple")}
                 >
-                  <Text style={styles.countryFlag}>{country.flag}</Text>
-                  <Text style={styles.countryName}>{country.name}</Text>
-                  <Text style={styles.countryCodeText}>{country.code}</Text>
+                  <Image
+                    source={require("../assets/images/apple.png")}
+                    style={styles.socialIcon}
+                  />
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
+                <TouchableOpacity
+                  style={styles.socialButton}
+                  onPress={() => handleSocialLogin("Google")}
+                >
+                  <Image
+                    source={require("../assets/images/google.png")}
+                    style={styles.socialIcon}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.socialButton}
+                  onPress={() => handleSocialLogin("Facebook")}
+                >
+                  <Image
+                    source={require("../assets/images/facebook.png")}
+                    style={styles.socialIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Footer */}
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>
+                Don't have an account?{" "}
+                <Link href="/signup" style={styles.footerLink}>
+                  Sign Up
+                </Link>
+              </Text>
+            </View>
           </View>
-        </View>
-      </Modal>
-    </KeyboardAvoidingView>
+        </ScrollView>
+
+        {/* Country Picker Modal */}
+        <Modal
+          visible={showCountryPicker}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowCountryPicker(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Select Country</Text>
+                <TouchableOpacity onPress={() => setShowCountryPicker(false)}>
+                  <Ionicons name="close" size={24} color="#333" />
+                </TouchableOpacity>
+              </View>
+              <ScrollView style={styles.countriesList}>
+                {countries.map((country) => (
+                  <TouchableOpacity
+                    key={country.code}
+                    style={styles.countryItem}
+                    onPress={() => {
+                      setSelectedCountry(country);
+                      setShowCountryPicker(false);
+                    }}
+                  >
+                    <Text style={styles.countryFlag}>{country.flag}</Text>
+                    <Text style={styles.countryName}>{country.name}</Text>
+                    <Text style={styles.countryCodeText}>{country.code}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -331,6 +340,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
+    minHeight: "100%",
   },
   headerContainer: {
     backgroundColor: "#263238",

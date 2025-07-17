@@ -844,7 +844,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   inputGroup: {
-    marginBottom: 20,
+    marginBottom: 8,
     position: "relative",
   },
   label: {
@@ -862,12 +862,6 @@ const styles = StyleSheet.create({
     color: "#000000",
     borderWidth: 0,
     paddingRight: 30,
-  },
-  inputWrapper: {
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#DDDDDD",
-    position: "relative",
   },
   inputIcon: {
     position: "absolute",
@@ -887,10 +881,8 @@ const styles = StyleSheet.create({
   },
   phoneInputContainer: {
     flexDirection: "row",
-    gap: 10,
+    gap: 8,
     position: "relative",
-    paddingBottom: 0,
-    paddingHorizontal: 0,
     borderBottomWidth: 1,
     borderBottomColor: "#DDDDDD",
   },
@@ -914,16 +906,18 @@ const styles = StyleSheet.create({
     color: "#000000",
     borderWidth: 0,
     flex: 1,
-    paddingRight: 50,
+    paddingRight: 30,
   },
   termsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 9,
-    paddingHorizontal: 5,
+      marginBottom: 25,
+        marginTop: 30,
+
+    paddingHorizontal: 0,
   },
   checkbox: {
-    marginRight: 10,
+    marginRight: 8,
   },
   termsText: {
     fontSize: 12,
@@ -935,14 +929,14 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   lockIcon: {
-    marginLeft: 5,
+    marginLeft: 8,
   },
   signUpButton: {
     backgroundColor: "#263238",
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 51,
   },
   disabledButton: {
     backgroundColor: "#CBD5E0",
@@ -956,7 +950,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 8,
   },
   socialContainer1: {
     flexDirection: "row",
@@ -964,7 +958,7 @@ const styles = StyleSheet.create({
   socialText: {
     fontSize: 12,
     color: "#AAAAAA",
-    marginRight: 15,
+    marginRight: 8,
   },
   socialButtons: {
     flexDirection: "row",
@@ -978,7 +972,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 6,
+    marginHorizontal: 8,
   },
   socialIcon: {
     width: 45,
@@ -1003,7 +997,8 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: "center",
   },
-  footerText: {
+    footerText: {
+      marginTop: 18,
     fontSize: 14,
     color: "#AAAAAA",
     textAlign: "center",
@@ -1018,7 +1013,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: "#FF3B30",
     fontSize: 12,
-    marginTop: 5,
+    marginTop: 8,
   },
   labelRow: {
     flexDirection: "row",
@@ -1052,7 +1047,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    gap: 4,
+    gap: 8,
   },
   countryFlag: {
     fontSize: 16,
